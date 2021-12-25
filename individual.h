@@ -50,12 +50,31 @@ public:
 	inline vector<int> get_sequence(int whichseq) { return sequences[whichseq]; }
 	inline vector<vector<int> > get_sequences() { return sequences; }
 
+	const vector<int> & get_seq(int whichseq) { return sequences[whichseq]; }
+
 	void remove_fixed_allele(int to_remove) {
 		for (int i = 0; i<2; ++i) {
 			vector<int>::iterator p = find(sequences[i].begin(), sequences[i].end(), to_remove);
 			if (p != sequences[i].end()) // i.e., element not found
 		    		sequences[i].erase(p);
 		 }
+	}
+
+	int get_genotype(int pos) { // returns number of ancestral alleles (i.e., 0s)
+		int geno = 2;
+		if ( find( sequences[0].begin(), sequences[0].end(), pos) != sequences[0].end() ) --geno;
+		if ( find( sequences[1].begin(), sequences[1].end(), pos) != sequences[1].end() ) --geno;
+		return geno;
+	}
+
+	int get_negsel_genotype(vector<int>& sites) { // returns number of seqs with a deleterious allele
+		int geno = 0;
+		for (int i=0; i<2; ++i) {
+			vector<int> intersectionality;
+			set_intersection(sites.begin(), sites.end(), sequences[i].begin(), sequences[i].end(), back_inserter(intersectionality));
+			if (intersectionality.size() >0) ++geno;
+		}
+		return geno;
 	}
 
 /*	vector<int> get_alleles() {

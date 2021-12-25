@@ -34,5 +34,6 @@ extern bool trackAlleleBirths;
 extern bool modelMigration;
 extern map<int, vector<int> > splitgenesis;
 extern map<int, vector<int> > mergegenesis;
+extern map<int, vector<double> > sellocus, possel, nfdsel, negsel;
 
 #endif

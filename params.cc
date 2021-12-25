@@ -84,7 +84,7 @@ vector<int> create_pop_schedule()
 // variable names
 int popsize, sampsize, seqlength, sampfreq, hotrecStart, hotrecStop, windowSize, windowStep, pop_num, runlength, printhapfreq, diploid_sample;
 double mutrate, recrate, hotrecrate;
-bool useRec, useHotRec, getWindowStats, modelMigration, trackAlleleBirths; 
+bool useRec, useHotRec, getWindowStats, modelMigration, trackAlleleBirths;
 vector<int> demography;
 vector<double> dem_parameter;
 vector<int> dem_start_gen;
@@ -95,6 +95,7 @@ vector<string> mscommand;
 vector<bool> useMS;
 vector<int> birthgen, extinctgen;
 map<int, vector<int> > pop_schedule, splitgenesis, mergegenesis;
+map<int, vector<double> > sellocus, possel, nfdsel, negsel;
 
 int process_parameters() { // replaces old version of function
 	for (auto iter = p.begin(); iter!=p.end(); ++iter ) {
@@ -134,6 +135,10 @@ int process_parameters() { // replaces old version of function
 			pop_schedule[iter->first] = create_pop_schedule();
 			splitgenesis[iter->first] = get_multi_int_param("splitgenesis", parameters);
 			mergegenesis[iter->first] = get_multi_int_param("mergegenesis", parameters);
+			sellocus[iter->first] = get_multi_double_param("sellocus", parameters);
+			possel[iter->first] = get_multi_double_param("possel", parameters);
+			nfdsel[iter->first] = get_multi_double_param("nfdsel", parameters);
+			negsel[iter->first] = get_multi_double_param("negsel", parameters); 
 		}
 	}
 	return 1;

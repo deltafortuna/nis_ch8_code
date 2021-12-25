@@ -1,4 +1,4 @@
-#ifndef METAPOPULATION_H   
+#ifndef METAPOPULATION_H
 #define METAPOPULATION_H
 
 class Metapopulation {
@@ -8,9 +8,10 @@ vector<Population*> populations;
 uniform_real_distribution<double> random01;
 
 public:
-	void reproduce_and_migrate(int gen) {
+	int reproduce_and_migrate(int gen) {
 		// reproduction within all extant demes
         // AND check for birth/extinction of population
+		bool fixtest = true;
 		for (int i=0; i<pop_num; ++i) {
 			if ((*populations[i]).get_extant()) {
 				if (extinctgen[i] == gen)
@@ -86,10 +87,19 @@ public:
 				}
 			} else continue;
 		}
-		if ( (gen+1) % sampfreq == 0)
-			for (int i=0; i<pop_num; ++i)
-				if ((*populations[i]).get_extant())
-					(*populations[i]).sample(gen);
+		if ( gen==0 || (gen+1) % sampfreq == 0) {
+			for (int i=0; i<pop_num; ++i) {
+				if ((*populations[i]).get_extant()) {
+					if (possel[(*populations[i]).get_popnum()][0] != 0 && sellocus[(*populations[i]).get_popnum()][4] == 1)
+						fixtest = (*populations[i]).sample(gen);
+					else
+						int dummy = (*populations[i]).sample(gen); //still update alleles
+					if (! fixtest )
+							break;
+				}
+			}
+		}
+		return(fixtest);
 	}
 
 	void close_output_files() {

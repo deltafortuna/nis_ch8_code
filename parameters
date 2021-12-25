@@ -1,22 +1,22 @@
 mutrate  1e-08
 useRec 1
-useHotRec 1
-recrate  1e-09
+useHotRec 0
+recrate  1e-08
 hotrecrate 1e-06
 hotrecStart 80000
 hotrecStop  81999
-seqlength 2e05
+seqlength 1e06
 sampsize  100
-sampfreq 25
+sampfreq 1
+printhapfreq 5000
 getWindowStats 1
 windowSize 10000
 windowStep 5000
 pop_num 2
-modelMigration 1
-migration_rates 0. 0.00001 0.00001 0.
-printhapfreq 5000
+modelMigration 0
+migration_rates 0. 0.01 0.01 0.
 diploid_sample 1
-trackAlleleBirths 1
+trackAlleleBirths 0
 runlength 5000
 DEME    /// 0
 popsize  10000
@@ -31,6 +31,10 @@ useMS 1
 mscommand ./ms 20000 1 -t 80 >ms_output
 splitgenesis 0 0 0
 mergegenesis 0 0 0
+sellocus 500000 1 0.05 0.025 0
+possel 0.1 0. 0.5
+nfdsel 0. 0.
+negsel 0. 0. 275000 325000 100
 DEME    /// 1
 popsize  10000
 demography 0
@@ -44,3 +48,7 @@ useMS 1
 mscommand ./ms 20000 1 -t 80 >ms_output
 splitgenesis 1 0 40
 mergegenesis 0 0 0
+sellocus 500000 1 0.05 0.025 1
+possel 0.05 0. 0.
+nfdsel 0. 0.
+negsel 0. 0. 275000 325000 100
