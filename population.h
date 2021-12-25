@@ -495,7 +495,7 @@ Population (int popnum, int eextant):popn(popnum), extant(eextant) { // added pa
 	allele_file.open(fname.c_str());
 	allele_file << "position birthgen lifespan extinct.fixed" << endl;
 
-	fname = "sumstats";
+	fname = "sumstats" + to_string(popn);
 	sumstat_file.open(fname.c_str());
 	if (getWindowStats) {
 		sumstat_file << "gen stat ";
