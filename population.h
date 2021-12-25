@@ -487,8 +487,6 @@ Population (int popnum, int eextant):popn(popnum), extant(eextant) { // added pa
 	if (activeselection) {
 		ofname = "deme" + to_string(popn) + "_selectioninfo";
 		sinfo.open(ofname.c_str());
-		sinfo << "Standing Variation? " << standingvar << endl;
-		sinfo << "Negative frequency-dependence? " << nfdselection << endl;
 	}
 
 	string fname = "allele_info";
