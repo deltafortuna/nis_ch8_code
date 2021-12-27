@@ -41,7 +41,7 @@ void update_selected_freqAndFit(const int &gen) {
 	for (int i=0; i<3; ++i)
 		genotype_freqs[i] /= pop_schedule[popn][gen];
 	sinfo << gen << "\t" << p << "\t" << genotype_freqs[0] << "\t" << genotype_freqs[1] << "\t" << genotype_freqs[2] << "\t";
-
+cout << "pop " << popn << " at " << p << endl;
 	if (nfdselection) {
 		/* fitness[0] = 1 - (nfd_s*p*p);
 		fitness[1] = 1 - (2*nfd_s*nfd_h*p*q);
@@ -299,7 +299,7 @@ void reproduce(int gen) {
 	if (gen % sampfreq == 0 && (!activeselection && !negselection))
 		update_alleles(gen);
 
-	if ( gen != 0 && gen % sampfreq == 0 ) {
+	if ( gen != 0 && gen % sampfreq == 0 && (!activeselection && !negselection)) {
 		random_shuffle(individuals.begin(), individuals.end() ) ;
 		get_sample(gen);
 	}
