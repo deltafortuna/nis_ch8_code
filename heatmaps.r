@@ -128,3 +128,60 @@ longitudinal_discrete_heatmap <- function(inputfile, stat="K", brks=vector(), ti
   }
   d;
 }
+
+stat_at_timepoint <- function(inputfile, stat="tajD", windows=seq(5000,995000,5000), timepoint, mvgavg=0)  # temporary function for book production
+{
+	d <- read.table(file = inputfile, header = T);
+	dd <- split(d, d$stat);
+	size <- dim(dd[[stat]]);
+	q <- dd[[stat]];
+	qq <- q[q$gen==timepoint, 3:size[2]];
+	plot(windows, qq, type = "b", lwd=0.25);
+
+	if (mvgavg >0 & (mvgavg %% 2 == 1) ) {
+		pos<-vector();
+		mavg<-vector();
+		abvbel = floor(mvgavg/2);
+		for(i in (abvbel+1):(size[2]-2-abvbel)) {
+			avg<-0;
+			pos<-c(pos, windows[i]);
+			for(j in (i-abvbel):(i+abvbel)) {
+				avg <- avg+qq[j];
+			}
+			mavg<-c(mavg, avg/mvgavg);
+		}
+		lines(pos, mavg, col = "black", lwd =2);
+	}
+	abline(h=0, lty = 1);
+	abline(h=-2, lty = 2);
+	abline(v=500000, lty = 3);
+}
+
+stat_at_timepoint <- function(inputfile, stat="tajD", windows=seq(5000,995000,5000), timepoint, mvgavg=0)  # temporary function for book production
+{
+	d <- read.table(file = inputfile, header = T);
+	dd <- split(d, d$stat);
+	size <- dim(dd[[stat]]);
+	q <- dd[[stat]];
+	qq <- q[q$gen==timepoint, 3:size[2]];
+	plot(windows, qq, type = "b", lwd=0.25);
+
+	if (mvgavg >0 & (mvgavg %% 2 == 1) ) {
+		pos<-vector();
+		mavg<-vector();
+		abvbel = floor(mvgavg/2);
+		for(i in (abvbel+1):(size[2]-2-abvbel)) {
+			avg<-0;
+			pos<-c(pos, windows[i]);
+			for(j in (i-abvbel):(i+abvbel)) {
+				avg <- avg+qq[j];
+			}
+			mavg<-c(mavg, avg/mvgavg);
+		}
+		lines(pos, mavg, col = "black", lwd =2);
+	}
+
+	abline(h=0, lty = 1);
+	abline(h=-2, lty = 2);
+	abline(v=500000, lty = 3);
+}
