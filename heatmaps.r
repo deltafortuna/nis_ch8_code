@@ -185,3 +185,12 @@ stat_at_timepoint <- function(inputfile, stat="tajD", windows=seq(5000,995000,50
 	abline(h=-2, lty = 2);
 	abline(v=500000, lty = 3);
 }
+
+sequence_boxplot <- function(inputfile, stat="pi", outlier=T, y=c())
+{
+	dat <- read.table(inputfile, header = T);
+	ddat <- split(dat, dat$stat);
+	q <- ddat[[stat]];
+	q <- q[,3:length(q[1,])];
+	boxplot(q, outline=outlier, ylim = y);
+}
